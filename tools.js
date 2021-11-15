@@ -1,5 +1,7 @@
 const childProcess = require('child_process');
 const fse = require('fs-extra');
+const fsc = require('fs');
+const util = require('util');
 const fs = require('fs/promises');
 const path = require('path');
 
@@ -196,7 +198,11 @@ async function unlink(sudo) {
   }
 }
 async function publish() {
-  if (await fs.exists(path.join(__dirname, 'dist', 'node_modules'))) {
+  if (
+    await util.promisify(fsc.exists)(
+      path.join(__dirname, 'dist', 'node_modules'),
+    )
+  ) {
     throw new Error(
       `Please remove "${path.join(__dirname, 'dist', 'node_modules')}"`,
     );
