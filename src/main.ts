@@ -88,7 +88,7 @@ export function search({
           ) {
             score++;
           }
-          index = newIndex;
+          index = newIndex + searchTerm.length;
         }
       }
       output.items[outputIndex].matches += matches;
